@@ -345,12 +345,14 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                         set("CL650/covers/pitot/copilot", 0)
                         set("CL650/covers/ice/copilot", 0)
                         set("CL650/covers/aoa/copilot", 0)
-    
+
                         -- Remove Pins
                         print("removing pins")
                         set("CL650/gear/pins/left", 0)
                         set("CL650/gear/pins/nose", 0)
                         set("CL650/gear/pins/right", 0)
+                        set("CL650/gear/pins/adg", 0)
+                        set("CL650/gear/pins/door", 0)
 
                         -- Open Blinds
                         set("CL650/window/blinds/1R", 1)
@@ -439,6 +441,11 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                         set("CL650/overhead/hyd/hyd_3A", 1)
                         set("CL650/overhead/hyd/hyd_3B", -1)
                         set("CL650/overhead/hyd/hyd_2B", -1)
+                        -- Close nose door
+                        if (get("CL650/svcpnl/ac/nose_door")) ~= 0 then
+                            print("closing nose door")
+                            command_once("CL650/svcpnl/ac/nose_door")
+                        end
                         -- Pedestal
                         command_once("CL650/pedestal/trim/stab_trim_ch_1")
                         command_once("CL650/pedestal/trim/stab_trim_ch_2")
@@ -574,12 +581,17 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
         if cpxpBEACON == 0 and cpxpENG1_N2 < 5 and cpxpENG2_N2 < 5 and cpxpFoShutDownRun then
             cpxpMsgStr = "CrewPackXP: FO is packing it up"
             cpxpBubbleTimer = 0
-            
-            
+
+
             if not cpxpBasicFoShutDown then
                 set("CL650/overhead/signs/emer_lts", 0)
                 if get("CL650/overhead/elec/ac_dc_util") == 0 then
                     command_once("CL650/overhead/elec/ac_dc_util")
+                end
+                -- Open nose door
+                if (get("CL650/svcpnl/ac/nose_door")) == 0 then
+                    print("opening nose door")
+                    command_once("CL650/svcpnl/ac/nose_door")
                 end
                 set("CL650/pedestal/thr_rev/arm_L", 0)
                 set("CL650/pedestal/thr_rev/arm_R", 0)
@@ -637,10 +649,9 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                 set("CL650/covers/ice/copilot", 1)
                 set("CL650/covers/aoa/copilot", 1)
 
-                -- Remove Pins
-                print("Installing pins")
+                -- Install Pins
+                print("Installing main gear pins")
                 set("CL650/gear/pins/left", 1)
-                set("CL650/gear/pins/nose", 1)
                 set("CL650/gear/pins/right", 1)
 
                 -- Open Blinds
@@ -668,6 +679,10 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                 set("CL650/overhead/elec/batt_master_value", 0)
                 cpxpApuShutdown = true
                 cpxpDoorSeq = 1
+                print("Installing nose gear pins")
+                set("CL650/gear/pins/nose", 1)
+                set("CL650/gear/pins/door", 1)
+                set("CL650/gear/pins/adg", 1)
                 print("CrewPackXP: APU Shutdown, door should be closing")
             end
 
