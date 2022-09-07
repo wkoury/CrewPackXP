@@ -31,7 +31,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     -- dependencies
     local LIP = require("LIP")
     require "graphics"
-    
+
     -- Status HUD Position
     local intHudXStart = 15 -- Moves Settings HUD left and right, 0 being far left of screen
     local intHudYStart = 475 -- Moves Settings HUD up and down, 0 being bottom of screen
@@ -46,7 +46,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     local cpxpPaTimer = 230
     local cpxpFaPlaySeq = 0
     local cpxpFlightOccoured = false
-    
+
     local cpxpCrewPackXPSettings = {}
     local cpxpShowSettingsWindow = false
     local cpxpMaster = true
@@ -57,14 +57,14 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     local cpxpFLCH = true
     local cpxpLocgsCalls = true
     local cpxpFoPreflight = true
-    
+
     local cpxpFlapPos = 0
     local cpxpFlapTime = 3
     local cpxpFlapInd = 0
     local cpxpFlapIndTime = 3
     local cpxpFlap0IndPlay = false
     local cpxpFlap20IndPlay = false
-    
+
     -- Sounds
     local cpxpStart1 = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/start_1.wav")
     local cpxpStart2 = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/start_2.wav")
@@ -72,37 +72,37 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     local cpxpStart4 = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/start_4.wav")
     local Output_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/output.wav")
     local cpxpStartLeft_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_StartLeft.wav")
-   local cpxpStartRight_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_StartRight.wav")
-   local cpxpStartLeft1_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Start1.wav")
-   local cpxpStartRight2_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Start2.wav")
-   local cpxpSetThrust_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_SetThrust.wav")
-   local cpxpThrustSet_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_ThrustSet.wav")
-   local cpxpEightyKts_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_80kts.wav")
-   local cpxpV1_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_V1.wav")
-   local cpxpVR_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_VR.wav")
-   local cpxpV2_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_V2.wav")
-   local cpxpPosRate_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_PosRate.wav")
-   local cpxpClimbThrust_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_pnf_ClimbThrust.wav")
-   local cpxpGearUp_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_GearUp.wav")
-   local cpxpGearIsUp_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_GearUp.wav")
-   local cpxpGearDn_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_GearDn.wav")
-   local cpxpGearIsDn_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_GearDn.wav")
-   local cpxpFlap0_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Flap0.wav")
-   local cpxpFlap20_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Flap20.wav")
-   local cpxpFlap30_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Flap30.wav")
-   local cpxpFlap45_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Flap45.wav")
-   local cpxpFlapIs0_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_Flap0.wav")
-   local cpxpFlapIs20_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_Flap20.wav")
-   local cpxpFlapIs30_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_Flap30.wav")
-   local cpxpFlapIs45_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_Flap45.wav")
-   local cpxpGScap_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_GS.wav")
-   local cpxpLOCcap_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_LOC.wav")
-   local cpxpLOCGScap_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_LOCandGS.wav")
-   local cpxpAltAlert_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_AltAlert.wav")
-   local cpxpFLCH_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/SpeedMode.wav")
-   local cpxpAutopilot_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/Autopilot.wav")
-   local cpxp2Green_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_RevGreen.wav")
-   local cpxpRevUnsafe_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_RevUnsafe.wav")
+    local cpxpStartRight_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_StartRight.wav")
+    local cpxpStartLeft1_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Start1.wav")
+    local cpxpStartRight2_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Start2.wav")
+    local cpxpSetThrust_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_SetThrust.wav")
+    local cpxpThrustSet_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_ThrustSet.wav")
+    local cpxpEightyKts_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_80kts.wav")
+    local cpxpV1_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_V1.wav")
+    local cpxpVR_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_VR.wav")
+    local cpxpV2_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_V2.wav")
+    local cpxpPosRate_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_PosRate.wav")
+    local cpxpClimbThrust_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_pnf_ClimbThrust.wav")
+    local cpxpGearUp_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_GearUp.wav")
+    local cpxpGearIsUp_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_GearUp.wav")
+    local cpxpGearDn_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_GearDn.wav")
+    local cpxpGearIsDn_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_GearDn.wav")
+    local cpxpFlap0_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Flap0.wav")
+    local cpxpFlap20_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Flap20.wav")
+    local cpxpFlap30_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Flap30.wav")
+    local cpxpFlap45_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pf_Flap45.wav")
+    local cpxpFlapIs0_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_Flap0.wav")
+    local cpxpFlapIs20_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_Flap20.wav")
+    local cpxpFlapIs30_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_Flap30.wav")
+    local cpxpFlapIs45_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_Flap45.wav")
+    local cpxpGScap_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_GS.wav")
+    local cpxpLOCcap_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_LOC.wav")
+    local cpxpLOCGScap_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_LOCandGS.wav")
+    local cpxpAltAlert_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_AltAlert.wav")
+    local cpxpFLCH_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/SpeedMode.wav")
+    local cpxpAutopilot_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/Autopilot.wav")
+    local cpxp2Green_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_RevGreen.wav")
+    local cpxpRevUnsafe_snd = load_WAV_file(SCRIPT_DIRECTORY .. "CrewPackXP/Sounds/HS650/pnf_RevUnsafe.wav")
 
     function CPXPSetGain()
         set_sound_gain(cpxpStart1, cpxpSoundVol)
@@ -151,7 +151,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     dataref("cpxpIAS", "sim/flightmodel/position/indicated_airspeed")
     dataref("cpxpVSI", "sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
     dataref("cpxpAGL", "sim/flightmodel/position/y_agl")
-    
+
 
     print("CrewPackXP: Initialising cpxpVersion " .. cpxpVersion)
     print("CrewPackXP: Starting at sim time " .. math.floor(cpxp_SIM_TIME))
@@ -190,13 +190,13 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
         if (cpxp_SIM_TIME < cpxpStartTime) then
             print(
                 "CrewPackXP: Init Delay " ..
-                    math.floor(cpxp_SIM_TIME) .. " waiting for " .. math.floor(cpxpStartTime) .. " --"
+                math.floor(cpxp_SIM_TIME) .. " waiting for " .. math.floor(cpxpStartTime) .. " --"
             )
             cpxpMsgStr = "CrewPackXP Loading in " .. math.floor(cpxpStartTime - cpxp_SIM_TIME) .. " seconds"
             return
         end
         -- Delay based on CL650 specific variables
-       
+
         if (XPLMFindDataRef("CL650/pedestal/flaps") ~= nil) then
             dataref("cpxpFLAP_LEVER", "CL650/pedestal/flaps")
         end
@@ -231,22 +231,22 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     local cpxpExternalView = 0
 
     function CPXPOutsideMute()
-      if not cpxpReady then
-         return
-      end
+        if not cpxpReady then
+            return
+        end
 
-      if cpxpExternalView ~= get("sim/graphics/view/view_is_external") then
-         cpxpExternalView = get("sim/graphics/view/view_is_external")
-         if cpxpExternalView == 1 then
-            cpxpSoundVol = 0.01
-            CPXPSetGain()
-         else
-            ParseCrewPackXPSettings()
-         end
-      end
+        if cpxpExternalView ~= get("sim/graphics/view/view_is_external") then
+            cpxpExternalView = get("sim/graphics/view/view_is_external")
+            if cpxpExternalView == 1 then
+                cpxpSoundVol = 0.01
+                CPXPSetGain()
+            else
+                ParseCrewPackXPSettings()
+            end
+        end
     end
 
-   do_every_frame("CPXPOutsideMute()")
+    do_every_frame("CPXPOutsideMute()")
 
     -- Start Up Sounds
     function CPXPStartSound()
@@ -268,7 +268,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             set("CL650/CDU/3/idx", 1)
             set("CL650/CCP/1/cas", 1)
             set("CL650/glareshield/master_warn_L", 1)
-            set("CL650/pedestal/throttle/at_disc_L" ,1)
+            set("CL650/pedestal/throttle/at_disc_L", 1)
         end
     end
 
@@ -287,10 +287,9 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                 if get("CL650/doors/main/ext_handle_inout_value") == 0 then
                     set("CL650/doors/main/ext_handle_inout", 1)
                 end
-                if
-                    get("CL650/doors/main/ext_handle_inout_value") == 1 and
-                        get("CL650/doors/main/ext_handle_rotate_value") == 0
-                 then
+                if get("CL650/doors/main/ext_handle_inout_value") == 1 and
+                    get("CL650/doors/main/ext_handle_rotate_value") == 0
+                then
                     set("CL650/doors/main/ext_handle_rotate", 1)
                 end
                 if get("CL650/doors/main/ext_handle_rotate_value") == 1 then
@@ -302,10 +301,9 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             end
         end
     end
-    
-    
+
     do_often("CPXPFoDoor()")
-    
+
     local cpxpFoPre_Basics = false
     local cpxpFoPre_ApuOnline = false
     local cpxpFoPre_AfterPower = false
@@ -335,7 +333,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                         set_array("CL650/gear/chocks", 0, 1)
                         set_array("CL650/gear/chocks", 1, 0)
                         set_array("CL650/gear/chocks", 2, 0)
-    
+
                         -- Remove covers
                         print("removing covers")
                         set("CL650/covers/pitot/pilot", 0)
@@ -371,13 +369,13 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                         set("CL650/window/blinds/6L", 1)
                         set("CL650/window/blinds/7L", 1)
                         print("Blinds Opened")
-    
+
                         -- Move HUD out of way
                         set("CL650/overhead/hud_combiner", 0)
                         -- Move Control columns down
                         set("CL650/contcoll/0/compact", 1)
                         set("CL650/contcoll/1/compact", 1)
-    
+
                         -- Cockpit Lighting
                         set("CL650/overhead/ext_lts/nav", 1)
                         set("CL650/overhead/int_lts/overhead", 0.2)
@@ -400,7 +398,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                         cpxpFoPre_Basics = true
                         print("Basics complete")
                     end
-    
+
                     -- Establish power
                     if not cpxpFoPre_ApuOnline then
                         if get("CL650/overhead/elec/batt_master") == 0 then
@@ -427,7 +425,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                                         print("Timer = " .. cpxpHoldTimer)
                                         cpxpFoPre_ApuOnline = true
                                         set("CL650/overhead/elec/ac_dc_util", 0)
-                                        
+
                                     end
                                 end
                             end
@@ -463,10 +461,10 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                         set("CL650/overhead/signs/no_smoking", -1)
                         set("CL650/overhead/signs/emer_lts", 1)
                         set("CL650/ACP/1/vhf2_tog", 1)
-                        
+
                         cpxpFoPre_AfterPower = true
                     end
-    
+
                     -- Set FMS to status
                     if cpxpFoPre_ApuOnline and cpxp_SIM_TIME > cpxpHoldTimer then
                         if cpxpFoPre_ApuOnline and not cpxpFoPre_CDU1 then
@@ -488,7 +486,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                                 end
                             end
                         end
-    
+
                         if cpxpFoPre_ApuOnline and not cpxpFoPre_CDU3 then
                             if get("CL650/CDU/3/screen/text_line0") ~= "" then
                                 print("CDU3 not blank")
@@ -515,8 +513,8 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                                 print("CDU2 in index, pressing status")
                                 command_once("CL650/CDU/2/lsk_l3")
                             elseif get("CL650/CDU/2/screen/text_line0") == "         STATUS     1/2 " then
-                                    print("cdu 2 done")
-                                    cpxpFoPre_CDU2S = true
+                                print("cdu 2 done")
+                                cpxpFoPre_CDU2S = true
                             end
                         end
 
@@ -546,7 +544,8 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                     end
 
                     -- done
-                    if cpxpFoPre_ECS and cpxpFoPre_Basics and cpxpFoPre_ApuOnline and cpxpFoPre_AfterPower and cpxpFoPre_CDUS then
+                    if cpxpFoPre_ECS and cpxpFoPre_Basics and cpxpFoPre_ApuOnline and cpxpFoPre_AfterPower and
+                        cpxpFoPre_CDUS then
                         set("CL650/pedestal/trim/mach", 1)
                         print("fo preflight complete")
                         cpxpFoPreflighComplete = true
@@ -558,10 +557,6 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             end
         end
     end
-
-    
-    
-    
 
     do_often("CPXPFoPreflight()")
     do_often("CPXPFoDoor()")
@@ -693,27 +688,27 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             end
 
             if not cpxpDoorclosed and cpxpDoorSeq == 3 then
-               set("CL650/doors/main/ext_handle_inout_value", 0) 
-               print("Locking Door")
-               cpxpDoorSeq = 4
+                set("CL650/doors/main/ext_handle_inout_value", 0)
+                print("Locking Door")
+                cpxpDoorSeq = 4
             end
 
             if cpxpDoorSeq == 4 then
                 cpxpFoShutDownRun = false
-               cpxpApuShutdown = false
-               cpxpDoorclosed = false
-               cpxpBasicFoShutDown = false
-               cpxpDoorSeq = 0
-               print("CrewPackXP: FO has finished shutting down the Challenger")
+                cpxpApuShutdown = false
+                cpxpDoorclosed = false
+                cpxpBasicFoShutDown = false
+                cpxpDoorSeq = 0
+                print("CrewPackXP: FO has finished shutting down the Challenger")
             end
-            
+
         end
     end
-    
+
     function CPXPcloseTheDoor()
         if not cpxpReady then
             return
-        end    
+        end
         if cpxpApuShutdown and cpxpDoorSeq == 1 then
             if get("CL650/doors/main/door") > 0.002 then
                 set("CL650/doors/main/door_value", 0.0)
@@ -729,7 +724,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     do_often("CPXPFoShutdown()")
 
 
-        -- Engine Start Calls
+    -- Engine Start Calls
 
     function CPXPEngineStart()
         if not cpxpReady then
@@ -760,9 +755,9 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             cpxpRightStart = false
         end
     end
-    
+
     do_often("CPXPEngineStart()")
-    
+
 
     local cpxpCDU3Mode = ""
     local cpxpTORaw = ""
@@ -801,7 +796,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     function CPXPThrustRef()
         -- Cant directly read the mode ooofty
         -- Routine Called as req
-        if cpxpENG1_N2 >=  60 and cpxpENG2_N2 >= 60 then
+        if cpxpENG1_N2 >= 60 and cpxpENG2_N2 >= 60 then
             -- Check CDU 3 is showing thrust ref
             cpxpCDU3Mode = tostring(get("CL650/CDU/3/screen/text_line0"))
             if cpxpCDU3Mode == "      THRUST LIMIT  1/2 " then
@@ -821,12 +816,12 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                     cpxpCLBACT = string.sub(cpxpCLBRaw, 7, 9)
                 else
                     cpxpCLBN1 = 90
-                    print("CrewPackXP: CLB N1 not found, using 90")    
+                    print("CrewPackXP: CLB N1 not found, using 90")
                 end
-                
+
             else
                 print("CrewPackXP: CDU3 Mode is wrong " .. cpxpCDU3Mode)
-                set("CL650/CDU/3/perf_value" ,1)
+                set("CL650/CDU/3/perf_value", 1)
                 print("CrewPackXP: Attempting to change mode")
                 cpxpTON1 = 90
                 print("CrewPackXP: TO N1 not found, substituting 90%")
@@ -835,7 +830,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     end
 
     local cpxpToEngRate = false
-    
+
 
     function CPXPEngRateMonitor()
         if not cpxpReady then
@@ -866,7 +861,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     local cpxpFLCHPlay = false
 
     function CPXPTakeoffTrigger()
-    -- TO Callout mode - Reset by climb thurst set call
+        -- TO Callout mode - Reset by climb thurst set call
         if cpxpToEngRate and cpxpWEIGHT_ON_WHEELS == 1 then
             cpxpToCalloutMode = true
             -- print("CrewPackXP: TO Callouts Armed")
@@ -886,7 +881,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             cpxpCalloutTimer = (cpxpCalloutTimer + 1)
             print("CrewPackXP: Call Timer" .. cpxpCalloutTimer)
         end
-        
+
         -- Set Thrust
         if cpxpToCalloutMode and cpxpENG1_N1 >= 60 and cpxpENG2_N1 >= 60 and cpxpPlaySeq == 0 then
             play_sound(cpxpSetThrust_snd)
@@ -897,26 +892,26 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
         end
         if cpxpToCalloutMode and cpxpPlaySeq == 1 then
             if cpxpTON1 ~= nil and cpxpCalloutTimer >= 2 then
-                if cpxpENG1_N1 >= (cpxpTON1 - 5)  then
-                play_sound(cpxpThrustSet_snd)
-                cpxpCalloutTimer = 0
-                print("CrewPackXP: Looking for TO Thrust of " .. cpxpTON1)
-                print("CrewPackXP: TO Thrust Set")       
-                cpxpPlaySeq = 2             
+                if cpxpENG1_N1 >= (cpxpTON1 - 5) then
+                    play_sound(cpxpThrustSet_snd)
+                    cpxpCalloutTimer = 0
+                    print("CrewPackXP: Looking for TO Thrust of " .. cpxpTON1)
+                    print("CrewPackXP: TO Thrust Set")
+                    cpxpPlaySeq = 2
                 end
             elseif cpxpTON1 == nil then
                 cpxpPlaySeq = 2
                 print("CrewPackXP: TO Thrust Skiped")
             end
         end
-        
+
         -- 80 Kts
         if cpxpToCalloutMode and cpxpPlaySeq == 2 and cpxpIAS > 78 and cpxpCalloutTimer >= 2 then
             play_sound(cpxpEightyKts_snd)
-            cpxpCalloutTimer = 0 
+            cpxpCalloutTimer = 0
             cpxpSixtyPlayed = false
-            cpxpPlaySeq = 3   
-        end 
+            cpxpPlaySeq = 3
+        end
 
         -- Obtain EFIS VSpeeds
         if get("CL650/xp_sys_bridge/efis/v1") > 0 and cpxpV1 ~= get("CL650/xp_sys_bridge/efis/v1") then
@@ -944,7 +939,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             print("CrewPackXP: V1 Speed not valid")
         end
 
-         -- VR
+        -- VR
         if cpxpToCalloutMode and cpxpVR ~= 0 and cpxpIAS > (cpxpVR - 3) and cpxpPlaySeq == 4 and cpxpCalloutTimer >= 1 then
             play_sound(cpxpVR_snd)
             cpxpCalloutTimer = 0
@@ -955,7 +950,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             print("CrewPackXP: VR Speed not valid")
         end
 
-     -- V2
+        -- V2
         if cpxpToCalloutMode and cpxpV2 ~= 0 and cpxpIAS > (cpxpV2 - 3) and cpxpPlaySeq == 5 and cpxpCalloutTimer >= 1 then
             play_sound(cpxpV2_snd)
             cpxpCalloutTimer = 0
@@ -965,25 +960,27 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             cpxpPlaySeq = 6
             print("CrewPackXP: V2 Speed not valid")
         end
-    
+
         -- Pos Rate
-        if cpxpToCalloutMode and cpxpWEIGHT_ON_WHEELS == 0 and cpxpVSI > 50 and cpxpAGL > 10 and cpxpPlaySeq == 6 and cpxpCalloutTimer >= 2 then
+        if cpxpToCalloutMode and cpxpWEIGHT_ON_WHEELS == 0 and cpxpVSI > 50 and cpxpAGL > 10 and cpxpPlaySeq == 6 and
+            cpxpCalloutTimer >= 2 then
             play_sound(cpxpPosRate_snd)
             cpxpCalloutTimer = 0
-            print("CrewPackXP: Positive Rate " .. math.floor(cpxpAGL / 0.3048) .. " AGL and " .. math.floor(cpxpVSI) .. " ft/min")
+            print("CrewPackXP: Positive Rate " ..
+                math.floor(cpxpAGL / 0.3048) .. " AGL and " .. math.floor(cpxpVSI) .. " ft/min")
             cpxpPlaySeq = 7
-         end
+        end
 
-         -- FLCH
+        -- FLCH
 
-         if cpxpFLCH and cpxpToCalloutMode and cpxpVSI > 50 and cpxpAGL > 152 and cpxpPlaySeq == 7 and not cpxpFLCHPress then
+        if cpxpFLCH and cpxpToCalloutMode and cpxpVSI > 50 and cpxpAGL > 152 and cpxpPlaySeq == 7 and not cpxpFLCHPress then
             set("CL650/FCP/flc_mode", 1)
             cpxpFLCHPress = true
             cpxpCalloutTimer = 0
             print("CrewPackXP: Pressing FLCH")
-         end
+        end
 
-         if cpxpFLCH and cpxpPlaySeq == 7 and cpxpFLCHPress and cpxpCalloutTimer > 2 and not cpxpFLCHPlay  then
+        if cpxpFLCH and cpxpPlaySeq == 7 and cpxpFLCHPress and cpxpCalloutTimer > 2 and not cpxpFLCHPlay then
             if get("CL650/lamps/glareshield/FCP/flc_1") ~= 0 then
                 play_sound(cpxpFLCH_snd)
                 cpxpFLCHPlay = true
@@ -993,10 +990,10 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                 cpxpFLCHPlay = true
                 print("CrewPackXP: Appears FLCH Failed " .. tostring(get("CL650/lamps/glareshield/FCP/flc_1")))
             end
-         end
+        end
 
-         -- Climb Thrust Workaround
-         if cpxpToCalloutMode and cpxpPlaySeq == 7 and cpxpAGL > 365 and not cpxpClimbThrustPressed then
+        -- Climb Thrust Workaround
+        if cpxpToCalloutMode and cpxpPlaySeq == 7 and cpxpAGL > 365 and not cpxpClimbThrustPressed then
             CPXPThrustRef()
             if cpxpFlap0IndPlay and cpxpGEAR_UPIND == 1 and cpxpCalloutTimer >= 2 then
                 if tostring(get("CL650/CDU/3/screen/text_line0")) == "      THRUST LIMIT  1/2 " and cpxpCLBACT ~= "ACT" then
@@ -1007,13 +1004,12 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                     cpxpCalloutTimer = 0
                     cpxpClimbThrustPressed = true
                     cpxpToCalloutMode = false
-                    print("CrewPackXP: ClimbThrust at ".. math.floor(cpxpAGL / 0.3048))
+                    print("CrewPackXP: ClimbThrust at " .. math.floor(cpxpAGL / 0.3048))
                     print("CrewPackXP: TO Mode off")
                 end
             end
         end
     end
-
 
     do_every_frame("CPXPTakeoffCalls()")
 
@@ -1027,7 +1023,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
         end
 
         if get("CL650/lamps/glareshield/FCP/ap_eng_1") ~= cpxpAPmode then
-            if get("CL650/lamps/glareshield/FCP/ap_eng_1") ~= 0 and not cpxpAPPlay  and cpxpCalloutTimer > 2 then
+            if get("CL650/lamps/glareshield/FCP/ap_eng_1") ~= 0 and not cpxpAPPlay and cpxpCalloutTimer > 2 then
                 play_sound(cpxpAutopilot_snd)
                 cpxpCalloutTimer = 0
                 print("CrewPackXP: AP On")
@@ -1037,9 +1033,9 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                 cpxpAPmode = 0
                 cpxpAPPlay = false
             end
-        end     
+        end
     end
-    
+
     do_often("CPXPAutoPilot()")
 
     -- Gear Selection
@@ -1058,19 +1054,20 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             cpxpGearUpSelectedPlay = true
             cpxpGearUpIndPlay = false
             cpxpGearDnSelectedPlay = false
-           cpxpFlightOccoured = true
-          --  cpxpApuStart = false
-          --  cpxpSpdBrkNotPlayed = false
-          -- cpxpSpdBrkPlayed = false
-          --  cpxpSixtyPlayed = false
-          --  cpxpHorsePlayed = false
-          --  cpxpTodPaPlayed = false
-          --  cpxpSeatsLandingPlayed = false
-          --  cpxpPaxSeatBeltsPlayed = false
-          --  set("1-sim/lights/landingN/switch", 0)
+            cpxpFlightOccoured = true
+            --  cpxpApuStart = false
+            --  cpxpSpdBrkNotPlayed = false
+            -- cpxpSpdBrkPlayed = false
+            --  cpxpSixtyPlayed = false
+            --  cpxpHorsePlayed = false
+            --  cpxpTodPaPlayed = false
+            --  cpxpSeatsLandingPlayed = false
+            --  cpxpPaxSeatBeltsPlayed = false
+            --  set("1-sim/lights/landingN/switch", 0)
             print("CrewPackXP: Gear Up Selected")
         end
-        if cpxpAGL > 15 and cpxpGEAR_LEVER == 1 and cpxpGEAR_UPIND == 1 and cpxpCalloutTimer >= 2 and not cpxpGearUpIndPlay then
+        if cpxpAGL > 15 and cpxpGEAR_LEVER == 1 and cpxpGEAR_UPIND == 1 and cpxpCalloutTimer >= 2 and
+            not cpxpGearUpIndPlay then
             play_sound(cpxpGearIsUp_snd)
             cpxpCalloutTimer = 0
             cpxpGearUpIndPlay = true
@@ -1087,12 +1084,13 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
             cpxpFLCHPress = false
             cpxpFLCHPlay = false
             cpxpClimbThrustPressed = false
-           -- cpxpTogaEvent = false
-           -- cpxpTogaMsg = false
-           -- set("1-sim/lights/landingN/switch", 1)
+            -- cpxpTogaEvent = false
+            -- cpxpTogaMsg = false
+            -- set("1-sim/lights/landingN/switch", 1)
             print("CrewPackXP: Gear Down")
         end
-        if cpxpAGL > 15 and cpxpGEAR_LEVER == 0 and cpxpGEAR_DNIND == 1 and cpxpCalloutTimer >= 2 and not cpxpGearDnIndPlay then
+        if cpxpAGL > 15 and cpxpGEAR_LEVER == 0 and cpxpGEAR_DNIND == 1 and cpxpCalloutTimer >= 2 and
+            not cpxpGearDnIndPlay then
             play_sound(cpxpGearIsDn_snd)
             cpxpCalloutTimer = 0
             cpxpGearDnIndPlay = true
@@ -1106,94 +1104,96 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
     -- Flaps Callouts in air only
 
 
-   function CPXPFlapsSelection()
-    if not cpxpReady then
-       return
-    end
-
-    if cpxpFlapPos == 0 and cpxpFlapTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
-       play_sound(cpxpFlap0_snd)
-       cpxpCalloutTimer = 0
-       print("CrewPackXP: Flaps 0 Selected for 1 Seconds -- ")
-    end
-    if cpxpFLAP_IND == 0 and cpxpCalloutTimer >= 2 and cpxpFlapIndTime == 1 and not cpxpFlap0IndPlay and cpxpWEIGHT_ON_WHEELS == 0 then
-        play_sound(cpxpFlapIs0_snd)
-        cpxpCalloutTimer = 0
-        print("CrewPackXP: Flaps 0 Indicated")    
-        cpxpFlap0IndPlay = true
-    end 
-
-    if cpxpFlapPos == 1 and cpxpFlapTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
-        play_sound(cpxpFlap20_snd)
-        cpxpCalloutTimer = 0
-        print("CrewPackXP: Flaps 20 Selected for 1 Seconds -- ")
-     end
-     if cpxpFLAP_IND == 20 and cpxpCalloutTimer >= 2 and cpxpFlapIndTime == 1 and not cpxpFlap20IndPlay and cpxpWEIGHT_ON_WHEELS == 0 then
-         play_sound(cpxpFlapIs20_snd)
-         cpxpCalloutTimer = 0
-         print("CrewPackXP: Flaps 20 Indicated")    
-         cpxpFlap20IndPlay = true
-     end
-
-     if cpxpFlapPos == 2 and cpxpFlapTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
-        play_sound(cpxpFlap30_snd)
-        cpxpCalloutTimer = 0
-        print("CrewPackXP: Flaps 30 Selected for 1 Seconds -- ")
-     end
-     if cpxpFLAP_IND == 30 and cpxpCalloutTimer >= 2 and cpxpFlapIndTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
-         play_sound(cpxpFlapIs30_snd)
-         cpxpCalloutTimer = 0
-         print("CrewPackXP: Flaps 30 Indicated")    
-     end 
-
-     if cpxpFlapPos == 3 and cpxpFlapTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
-        play_sound(cpxpFlap45_snd)
-        cpxpCalloutTimer = 0
-        print("CrewPackXP: Flaps 45 Selected for 1 Seconds -- ")
-     end
-     if cpxpFLAP_IND == 45 and cpxpCalloutTimer >= 2 and cpxpFlapIndTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
-         play_sound(cpxpFlapIs45_snd)
-         cpxpCalloutTimer = 0
-         print("CrewPackXP: Flaps 45 Indicated")    
-     end 
-    
- end
-
- do_often("CPXPFlapsSelection()")
-
- --Monitor Flap Movement
- function CPXPFlapPosCheck()
-    if not cpxpReady then
-       return
-    end
-    if cpxpFlapPos ~= cpxpFLAP_LEVER then
-       cpxpFlapTime = 0
-       cpxpFlapPos = cpxpFLAP_LEVER
-       cpxpFlap0IndPlay = false
-       cpxpFlap20IndPlay = false
-       print("CrewPackXP: Flaps Moved to " .. cpxpFlapPos)
-    else
-       if cpxpFlapTime <= 1 then
-          cpxpFlapTime = cpxpFlapTime + 1
-          print("CrewPackXP: cpxpFlapTime = " .. cpxpFlapTime)
-       end
-    end
-    if cpxpFlapInd ~= cpxpFLAP_IND then
-        cpxpFlapIndTime = 0
-        cpxpFlapInd = cpxpFLAP_IND
-        print("CrewPackXP: Flaps Set to " .. cpxpFlapPos)
-     else
-        if cpxpFlapIndTime <= 1 then
-           cpxpFlapIndTime = cpxpFlapIndTime + 1
-           print("CrewPackXP: cpxpFlapTime = " .. cpxpFlapIndTime)
+    function CPXPFlapsSelection()
+        if not cpxpReady then
+            return
         end
-     end
- end -- End FlapPosCheck
 
- do_often("CPXPFlapPosCheck()")
+        if cpxpFlapPos == 0 and cpxpFlapTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
+            play_sound(cpxpFlap0_snd)
+            cpxpCalloutTimer = 0
+            print("CrewPackXP: Flaps 0 Selected for 1 Seconds -- ")
+        end
+        if cpxpFLAP_IND == 0 and cpxpCalloutTimer >= 2 and cpxpFlapIndTime == 1 and not cpxpFlap0IndPlay and
+            cpxpWEIGHT_ON_WHEELS == 0 then
+            play_sound(cpxpFlapIs0_snd)
+            cpxpCalloutTimer = 0
+            print("CrewPackXP: Flaps 0 Indicated")
+            cpxpFlap0IndPlay = true
+        end
+
+        if cpxpFlapPos == 1 and cpxpFlapTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
+            play_sound(cpxpFlap20_snd)
+            cpxpCalloutTimer = 0
+            print("CrewPackXP: Flaps 20 Selected for 1 Seconds -- ")
+        end
+        if cpxpFLAP_IND == 20 and cpxpCalloutTimer >= 2 and cpxpFlapIndTime == 1 and not cpxpFlap20IndPlay and
+            cpxpWEIGHT_ON_WHEELS == 0 then
+            play_sound(cpxpFlapIs20_snd)
+            cpxpCalloutTimer = 0
+            print("CrewPackXP: Flaps 20 Indicated")
+            cpxpFlap20IndPlay = true
+        end
+
+        if cpxpFlapPos == 2 and cpxpFlapTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
+            play_sound(cpxpFlap30_snd)
+            cpxpCalloutTimer = 0
+            print("CrewPackXP: Flaps 30 Selected for 1 Seconds -- ")
+        end
+        if cpxpFLAP_IND == 30 and cpxpCalloutTimer >= 2 and cpxpFlapIndTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
+            play_sound(cpxpFlapIs30_snd)
+            cpxpCalloutTimer = 0
+            print("CrewPackXP: Flaps 30 Indicated")
+        end
+
+        if cpxpFlapPos == 3 and cpxpFlapTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
+            play_sound(cpxpFlap45_snd)
+            cpxpCalloutTimer = 0
+            print("CrewPackXP: Flaps 45 Selected for 1 Seconds -- ")
+        end
+        if cpxpFLAP_IND == 45 and cpxpCalloutTimer >= 2 and cpxpFlapIndTime == 1 and cpxpWEIGHT_ON_WHEELS == 0 then
+            play_sound(cpxpFlapIs45_snd)
+            cpxpCalloutTimer = 0
+            print("CrewPackXP: Flaps 45 Indicated")
+        end
+
+    end
+
+    do_often("CPXPFlapsSelection()")
+
+    --Monitor Flap Movement
+    function CPXPFlapPosCheck()
+        if not cpxpReady then
+            return
+        end
+        if cpxpFlapPos ~= cpxpFLAP_LEVER then
+            cpxpFlapTime = 0
+            cpxpFlapPos = cpxpFLAP_LEVER
+            cpxpFlap0IndPlay = false
+            cpxpFlap20IndPlay = false
+            print("CrewPackXP: Flaps Moved to " .. cpxpFlapPos)
+        else
+            if cpxpFlapTime <= 1 then
+                cpxpFlapTime = cpxpFlapTime + 1
+                print("CrewPackXP: cpxpFlapTime = " .. cpxpFlapTime)
+            end
+        end
+        if cpxpFlapInd ~= cpxpFLAP_IND then
+            cpxpFlapIndTime = 0
+            cpxpFlapInd = cpxpFLAP_IND
+            print("CrewPackXP: Flaps Set to " .. cpxpFlapPos)
+        else
+            if cpxpFlapIndTime <= 1 then
+                cpxpFlapIndTime = cpxpFlapIndTime + 1
+                print("CrewPackXP: cpxpFlapTime = " .. cpxpFlapIndTime)
+            end
+        end
+    end -- End FlapPosCheck
+
+    do_often("CPXPFlapPosCheck()")
 
 
--- 1000 to go call
+    -- 1000 to go call
     local cpxpAltAlert = 0
     local cpxpAltAlertPlay = false
 
@@ -1208,159 +1208,162 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                 cpxpAltAlert = 0
                 cpxpAltAlertPlay = false
             end
-        end       
+        end
     end
 
     do_often("CPXPAltAlert()")
 
     -- Localiser / GlideSlope
-    
+
     local cpxpLocPlayed = true
     local cpxpGsPlayed = true
 
-   dataref("cpxpLOC_DEVIATION", "sim/cockpit/radios/nav1_hdef_dot")
-   dataref("cpxpLOC_RECEIVED", "libradio/nav1/have_loc_signal")
-   dataref("cpxpGS_DEVIATION", "sim/cockpit/radios/nav1_vdef_dot")
-   dataref("cpxpGS_RECEIVED", "libradio/nav1/have_gp_signal")
-   dataref("cpxpAPPR", "CL650/lamps/glareshield/FCP/appr_1")
+    dataref("cpxpLOC_DEVIATION", "sim/cockpit/radios/nav1_hdef_dot")
+    dataref("cpxpLOC_RECEIVED", "libradio/nav1/have_loc_signal")
+    dataref("cpxpGS_DEVIATION", "sim/cockpit/radios/nav1_vdef_dot")
+    dataref("cpxpGS_RECEIVED", "libradio/nav1/have_gp_signal")
+    dataref("cpxpAPPR", "CL650/lamps/glareshield/FCP/appr_1")
 
-   function CPXPLocGsAlive()
-    if not cpxpReady then
-       return
-    end
-    -- Loc Capture Right of localiser (CDI Left) Reset by: Full scale LOC deflection
-    if cpxpLocgsCalls then
-       if  cpxpWEIGHT_ON_WHEELS == 0 and cpxpAPPR ~= 0 and cpxpLOC_DEVIATION > -1.8 and cpxpLOC_DEVIATION <= 1 and not cpxpLocPlayed and not cpxpToCalloutMode then
-          if cpxpGS_RECEIVED == 1 and cpxpGS_DEVIATION > -1.8 and cpxpGS_DEVIATION < 1 and cpxpCalloutTimer > 2 then
-             play_sound(cpxpLOCGScap_snd)
-             cpxpCalloutTimer = 0
-             print("CrewPackXP: LOC and GS Active")
-             cpxpCalloutTimer = 0
-             cpxpLocPlayed = true
-             cpxpGsPlayed = true
-          else
-             play_sound(cpxpLOCcap_snd)
-             cpxpCalloutTimer = 0
-             print("CrewPackXP: LOC Active")
-             cpxpCalloutTimer = 0
-             cpxpLocPlayed = true
-          end
-       end
+    function CPXPLocGsAlive()
+        if not cpxpReady then
+            return
+        end
+        -- Loc Capture Right of localiser (CDI Left) Reset by: Full scale LOC deflection
+        if cpxpLocgsCalls then
+            if cpxpWEIGHT_ON_WHEELS == 0 and cpxpAPPR ~= 0 and cpxpLOC_DEVIATION > -1.8 and cpxpLOC_DEVIATION <= 1 and
+                not cpxpLocPlayed and not cpxpToCalloutMode then
+                if cpxpGS_RECEIVED == 1 and cpxpGS_DEVIATION > -1.8 and cpxpGS_DEVIATION < 1 and cpxpCalloutTimer > 2 then
+                    play_sound(cpxpLOCGScap_snd)
+                    cpxpCalloutTimer = 0
+                    print("CrewPackXP: LOC and GS Active")
+                    cpxpCalloutTimer = 0
+                    cpxpLocPlayed = true
+                    cpxpGsPlayed = true
+                else
+                    play_sound(cpxpLOCcap_snd)
+                    cpxpCalloutTimer = 0
+                    print("CrewPackXP: LOC Active")
+                    cpxpCalloutTimer = 0
+                    cpxpLocPlayed = true
+                end
+            end
 
-       if cpxpLOC_DEVIATION <= -2.5 and cpxpLocPlayed then
-          print("CrewPackXP: Reset Loc Active Logic")
-          print("CrewPackXP: Reset GS Alive Logic")
-          cpxpLocPlayed = false
-          cpxpGsPlayed = false
-       end
-       -- Loc Capture Left of localiser (CDI Right)
-       if cpxpWEIGHT_ON_WHEELS == 0 and cpxpAPPR ~= 0 and cpxpLOC_DEVIATION < 1.8 and cpxpLOC_DEVIATION >= 1 and not cpxpLocPlayed and not cpxpToCalloutMode then
-          if cpxpGS_RECEIVED == 1 and cpxpGS_DEVIATION > -1.8 and cpxpGS_DEVIATION < 1 and cpxpCalloutTimer > 2 then
-             play_sound(cpxpLOCGScap_snd)
-             cpxpCalloutTimer = 0
-             print("CrewPackXP: LOC and GS Active")
-             cpxpCalloutTimer = 0
-             cpxpLocPlayed = true
-             cpxpGsPlayed = true
-          else
-             play_sound(cpxpLOCcap_snd)
-             cpxpCalloutTimer = 0
-             print("CrewPackXP: LOC Active")
-             cpxpCalloutTimer = 0
-             cpxpLocPlayed = true
-          end
-       end
+            if cpxpLOC_DEVIATION <= -2.5 and cpxpLocPlayed then
+                print("CrewPackXP: Reset Loc Active Logic")
+                print("CrewPackXP: Reset GS Alive Logic")
+                cpxpLocPlayed = false
+                cpxpGsPlayed = false
+            end
+            -- Loc Capture Left of localiser (CDI Right)
+            if cpxpWEIGHT_ON_WHEELS == 0 and cpxpAPPR ~= 0 and cpxpLOC_DEVIATION < 1.8 and cpxpLOC_DEVIATION >= 1 and
+                not cpxpLocPlayed and not cpxpToCalloutMode then
+                if cpxpGS_RECEIVED == 1 and cpxpGS_DEVIATION > -1.8 and cpxpGS_DEVIATION < 1 and cpxpCalloutTimer > 2 then
+                    play_sound(cpxpLOCGScap_snd)
+                    cpxpCalloutTimer = 0
+                    print("CrewPackXP: LOC and GS Active")
+                    cpxpCalloutTimer = 0
+                    cpxpLocPlayed = true
+                    cpxpGsPlayed = true
+                else
+                    play_sound(cpxpLOCcap_snd)
+                    cpxpCalloutTimer = 0
+                    print("CrewPackXP: LOC Active")
+                    cpxpCalloutTimer = 0
+                    cpxpLocPlayed = true
+                end
+            end
 
-       if cpxpLOC_DEVIATION >= 2.5 and cpxpLocPlayed then
-          cpxpLocPlayed = false
-          cpxpGsPlayed = false
-          print("CrewPackXP: Reset Loc Active Logic")
-          print("CrewPackXP: Reset GS Alive Logic")
-       end
-       -- GS
-       if
-       cpxpWEIGHT_ON_WHEELS == 0 and cpxpAPPR ~= 0 and  cpxpGS_RECEIVED == 1 and cpxpGS_DEVIATION > -1.95 and cpxpGS_DEVIATION < 1 and cpxpLocPlayed and not cpxpGsPlayed and cpxpCalloutTimer >= 2 and not cpxpToCalloutMode then
-          play_sound(cpxpGScap_snd)
-          cpxpCalloutTimer = 0
-          print("CrewPackXP: GS Alive")
-          cpxpGsPlayed = true
-       end
-    end
- end
-
- do_often("CPXPLocGsAlive()")
-
-
-   -- Landing Roll / Speedbrakes - Reset by: Gear Up
- 
- local cpxpRevPlayed = true
- local cpxpRevTime = 0
-
- dataref("CPXP_REV1", "CL650/pedestal/throttle/reverse_L")
- dataref("CPXP_REV2", "CL650/pedestal/throttle/reverse_R")
- dataref("CPXP_REV1ACT", "CL650/anim/engines/thrust_reverser_deploy_ratio", 0)
- dataref("CPXP_REV2ACT", "CL650/anim/engines/thrust_reverser_deploy_ratio", 1)
-
-
-   function CPXPLanding()
-    if not cpxpReady then
-       return
+            if cpxpLOC_DEVIATION >= 2.5 and cpxpLocPlayed then
+                cpxpLocPlayed = false
+                cpxpGsPlayed = false
+                print("CrewPackXP: Reset Loc Active Logic")
+                print("CrewPackXP: Reset GS Alive Logic")
+            end
+            -- GS
+            if cpxpWEIGHT_ON_WHEELS == 0 and cpxpAPPR ~= 0 and cpxpGS_RECEIVED == 1 and cpxpGS_DEVIATION > -1.95 and
+                cpxpGS_DEVIATION < 1 and cpxpLocPlayed and not cpxpGsPlayed and cpxpCalloutTimer >= 2 and
+                not cpxpToCalloutMode then
+                play_sound(cpxpGScap_snd)
+                cpxpCalloutTimer = 0
+                print("CrewPackXP: GS Alive")
+                cpxpGsPlayed = true
+            end
+        end
     end
 
-    if cpxpWEIGHT_ON_WHEELS == 1 and cpxpFlightOccoured then
-       if CPXP_REV1 ~= 0 and CPXP_REV2 ~= 0 and CPXP_REV1ACT ~= 0 and CPXP_REV2ACT ~= 0 and not cpxpRevPlayed then
-          play_sound(cpxp2Green_snd)
-          cpxpRevPlayed = true
-          print("CrewPackXP: Both Eng in Reverse")
-       end
-       if cpxpRevTime == 2 and CPXP_REV1 ~= 0 and CPXP_REV1ACT == 0 and not cpxpRevPlayed then
-          play_sound(cpxpRevUnsafe_snd)
-          cpxpRevPlayed = true
-          cpxpCalloutTimer = 0
-          print("CrewPackXP: Eng 1 not in Reverse")
-       elseif cpxpRevTime == 2 and CPXP_REV2 ~= 0 and CPXP_REV2ACT == 0 and not cpxpRevPlayed and cpxpCalloutTimer > 2 then
-            play_sound(cpxpRevUnsafe_snd)
-            cpxpRevPlayed = true
-            print("CrewPackXP: Eng 2 not in Reverse")
-       end
+    do_often("CPXPLocGsAlive()")
+
+
+    -- Landing Roll / Speedbrakes - Reset by: Gear Up
+
+    local cpxpRevPlayed = true
+    local cpxpRevTime = 0
+
+    dataref("CPXP_REV1", "CL650/pedestal/throttle/reverse_L")
+    dataref("CPXP_REV2", "CL650/pedestal/throttle/reverse_R")
+    dataref("CPXP_REV1ACT", "CL650/anim/engines/thrust_reverser_deploy_ratio", 0)
+    dataref("CPXP_REV2ACT", "CL650/anim/engines/thrust_reverser_deploy_ratio", 1)
+
+
+    function CPXPLanding()
+        if not cpxpReady then
+            return
+        end
+
+        if cpxpWEIGHT_ON_WHEELS == 1 and cpxpFlightOccoured then
+            if CPXP_REV1 ~= 0 and CPXP_REV2 ~= 0 and CPXP_REV1ACT ~= 0 and CPXP_REV2ACT ~= 0 and not cpxpRevPlayed then
+                play_sound(cpxp2Green_snd)
+                cpxpRevPlayed = true
+                print("CrewPackXP: Both Eng in Reverse")
+            end
+            if cpxpRevTime == 2 and CPXP_REV1 ~= 0 and CPXP_REV1ACT == 0 and not cpxpRevPlayed then
+                play_sound(cpxpRevUnsafe_snd)
+                cpxpRevPlayed = true
+                cpxpCalloutTimer = 0
+                print("CrewPackXP: Eng 1 not in Reverse")
+            elseif cpxpRevTime == 2 and CPXP_REV2 ~= 0 and CPXP_REV2ACT == 0 and not cpxpRevPlayed and
+                cpxpCalloutTimer > 2 then
+                play_sound(cpxpRevUnsafe_snd)
+                cpxpRevPlayed = true
+                print("CrewPackXP: Eng 2 not in Reverse")
+            end
+        end
     end
-end
+
+    do_often("CPXPLanding()")
+
+    function CPXPRevCheck()
+        if not cpxpReady then
+            return
+        end
+
+        if CPXP_REV1 == 0 and CPXP_REV2 == 0 then
+            cpxpRevTime = 0
+            cpxpRevPlayed = false
+        else
+            if cpxpRevTime < 2 then
+                cpxpRevTime = cpxpRevTime + 1
+                print("CrewPackXP: Rev Time " .. cpxpRevTime)
+            end
+        end
+    end -- End of OnGrndCheck
+
+    do_often("CPXPRevCheck()")
 
 
- do_often("CPXPLanding()")
-
- function CPXPRevCheck()
-    if not cpxpReady then
-       return
+    -- Reset Variables for next Flight
+    function CPXPMasterReset()
+        if not cpxpReady then
+            return
+        end
+        if cpxpIAS < 2 and cpxpWEIGHT_ON_WHEELS == 1 and get("CL650/pedestal/park_brake") ~= 0 then
+            cpxpPlaySeq = 0
+            cpxpFlightOccoured = false
+            print("CrewPackXP: TO Calls Reset")
+        end
     end
 
-    if CPXP_REV1 == 0 and CPXP_REV2 == 0 then
-       cpxpRevTime = 0
-       cpxpRevPlayed = false
-    else
-       if cpxpRevTime < 2 then
-          cpxpRevTime = cpxpRevTime + 1
-          print("CrewPackXP: Rev Time " .. cpxpRevTime )
-       end
-    end
- end -- End of OnGrndCheck
-
- do_often("CPXPRevCheck()")
-
-
-   -- Reset Variables for next Flight
-   function CPXPMasterReset()
-    if not cpxpReady then
-       return
-    end
-    if cpxpIAS < 2 and cpxpWEIGHT_ON_WHEELS == 1 and get("CL650/pedestal/park_brake") ~= 0 then
-       cpxpPlaySeq = 0
-       cpxpFlightOccoured = false
-       print("CrewPackXP: TO Calls Reset")
-    end
- end
-
- do_often("CPXPMasterReset()")
+    do_often("CPXPMasterReset()")
 
 
 
@@ -1465,10 +1468,10 @@ end
 
     function CloseCrewPackXPSettings_wnd()
         if CrewPackXPSettings_wnd then
-           cpxpShowSettingsWindow = false
-           float_wnd_destroy(CrewPackXPSettings_wnd)
+            cpxpShowSettingsWindow = false
+            float_wnd_destroy(CrewPackXPSettings_wnd)
         end
-     end
+    end
 
     function ToggleCrewPackXPSettings()
         if not cpxpShowSettingsWindow then
@@ -1541,11 +1544,11 @@ end
 
     ]]
 
-    local fltTransparency = 0.25		--alpha value for the boxes
-    local fltCurrentTransparency = fltTransparency		--use this to fade the gui in and out
-    local fltTextVanishingPoint = 0.75	-- this is the transparency value where text needs to 'hide'
-    local intButtonHeight = 30			--the clickable 'panels' are called buttons
-    local intButtonWidth = 140			--the clickable 'panels' are called buttons
+    local fltTransparency = 0.25 --alpha value for the boxes
+    local fltCurrentTransparency = fltTransparency --use this to fade the gui in and out
+    local fltTextVanishingPoint = 0.75 -- this is the transparency value where text needs to 'hide'
+    local intButtonHeight = 30 --the clickable 'panels' are called buttons
+    local intButtonWidth = 140 --the clickable 'panels' are called buttons
     local intHeadingHeight = 30
     local intFrameBorderSize = 5
 
@@ -1555,9 +1558,9 @@ end
         local y1 = intHudYStart
         local x2 = x1 + intFrameBorderSize + intButtonWidth + intButtonWidth + intFrameBorderSize
         local y2 = y1 + intFrameBorderSize + intButtonHeight + intButtonHeight + intHeadingHeight + intFrameBorderSize
-        
+
         graphics.set_color(1, 1, 1, fltCurrentTransparency) --white
-        graphics.draw_rectangle(x1,y1,x2,y2)
+        graphics.draw_rectangle(x1, y1, x2, y2)
     end
 
     function tfCPXP_DrawInsidePanel()
@@ -1566,9 +1569,9 @@ end
         local y1 = intHudYStart + intFrameBorderSize
         local x2 = x1 + intButtonWidth + intButtonWidth
         local y2 = y1 + intButtonHeight + intButtonHeight + intHeadingHeight
-    
+
         graphics.set_color(1, 1, 1, fltCurrentTransparency) --white
-        graphics.draw_rectangle(x1,y1,x2,y2)
+        graphics.draw_rectangle(x1, y1, x2, y2)
     end
 
     function tfCPXP_DrawHeadingPanel()
@@ -1577,13 +1580,13 @@ end
         local y1 = intHudYStart + intFrameBorderSize + intButtonHeight + intButtonHeight
         local x2 = x1 + intButtonWidth + intButtonWidth
         local y2 = y1 + intHeadingHeight
-        
-        local fltStringTransparency = fltCurrentTransparency/fltTransparency	-- change the RGB of the text based on expected fade level
-        if fltStringTransparency > fltTextVanishingPoint then	-- this stops drawing text when the transparency gets too low.
-            graphics.draw_string((x1 + (intButtonWidth * 0.25)),(y1 + (intButtonHeight * 0.5)), cpxpVersion, 0, 0, 0)
+
+        local fltStringTransparency = fltCurrentTransparency / fltTransparency -- change the RGB of the text based on expected fade level
+        if fltStringTransparency > fltTextVanishingPoint then -- this stops drawing text when the transparency gets too low.
+            graphics.draw_string((x1 + (intButtonWidth * 0.25)), (y1 + (intButtonHeight * 0.5)), cpxpVersion, 0, 0, 0)
         end
         graphics.set_color(1, 1, 1, fltCurrentTransparency) --white
-        graphics.draw_rectangle(x1,y1,x2,y2)	
+        graphics.draw_rectangle(x1, y1, x2, y2)
     end
 
     function tfCPXP_DrawStatusPanel()
@@ -1593,8 +1596,8 @@ end
         local y2 = y1 + intButtonHeight
 
         if cpxpReady then
-            local fltStringTransparency = fltCurrentTransparency/fltTransparency	-- change the RGB of the text based on expected fade level
-            if fltStringTransparency > fltTextVanishingPoint then	-- this stops drawing text when the transparency gets too low.
+            local fltStringTransparency = fltCurrentTransparency / fltTransparency -- change the RGB of the text based on expected fade level
+            if fltStringTransparency > fltTextVanishingPoint then -- this stops drawing text when the transparency gets too low.
                 local cpxptomodestate = nil
                 local cpxpVspeedsstr = nil
                 if cpxpToCalloutMode == true then
@@ -1604,65 +1607,66 @@ end
                 end
                 local cpxpToStatus = "To Mode is: " .. cpxptomodestate
                 if cpxpV1 > 0 then
-                    cpxpVspeedsstr = "Current Vspeeds: V1 " .. cpxpV1 .. ", VR " .. cpxpVR.. ", V2 " .. cpxpV2
+                    cpxpVspeedsstr = "Current Vspeeds: V1 " .. cpxpV1 .. ", VR " .. cpxpVR .. ", V2 " .. cpxpV2
                 else
                     cpxpVspeedsstr = "Current Vspeeds: V1 'nil', VR 'nil', V2 'nil'"
                 end
-                graphics.draw_string(x1 + (intButtonWidth * 0.05),y1 + (intButtonHeight * 0.6),cpxpToStatus, 0, 0, 0)
-                graphics.draw_string(x1 + (intButtonWidth * 0.05), y1 + (intButtonHeight * 0.2), cpxpVspeedsstr, 0, 0, 0)	
+                graphics.draw_string(x1 + (intButtonWidth * 0.05), y1 + (intButtonHeight * 0.6), cpxpToStatus, 0, 0, 0)
+                graphics.draw_string(x1 + (intButtonWidth * 0.05), y1 + (intButtonHeight * 0.2), cpxpVspeedsstr, 0, 0, 0)
             end
         end
-            
+
         graphics.set_color(1, 1, 1, fltCurrentTransparency) --white
-        graphics.draw_rectangle(x1,y1,x2,y2)
+        graphics.draw_rectangle(x1, y1, x2, y2)
     end
 
     function tfCPXP_DrawAlphaState()
-	-- FO preflight and Packup Options enabled
-	
-	--There are two buttons side by side in this state
-	local x1 = intHudXStart + intFrameBorderSize
-	local y1 = intHudYStart + intFrameBorderSize + intButtonHeight
-	local x2 = x1 + intButtonWidth
-	local y2 = y1 + intButtonHeight
-	
-	local fltStringTransparency = fltCurrentTransparency/fltTransparency	-- change the RGB of the text based on expected fade level
-	if fltStringTransparency > fltTextVanishingPoint then	-- this stops drawing text when the transparency gets too low.
-		graphics.draw_string(x1 + (intButtonWidth * 0.15), y1 + (intButtonHeight * 0.4), "Ask FO to Preflight", 0, 0, 0)
-	end
-	graphics.set_color(0.27, 0.51, 0.71, fltCurrentTransparency)
-	graphics.draw_rectangle(x1,y1,x2,y2)	
-	
-	--draw button outline
-	local fltStringTransparency = (fltCurrentTransparency/fltTransparency) * 0.5	-- change the line transparency. 0.5 is zero transparency
-	graphics.set_color(0,0,0,fltStringTransparency)	--black
-	graphics.draw_line(x1,y1,x2,y1)
-	graphics.draw_line(x2,y1,x2,y2)
-	graphics.draw_line(x2,y2,x1,y2)
-	graphics.draw_line(x1,y2,x1,y1)
-	
-	--Draw the second button
-	x1 = x2
-	--y1 = y1		--y1 doesn't change value
-	x2 = x1 + intButtonWidth
-	y2 = y1 + intButtonHeight	
-	
-	local fltStringTransparency = fltCurrentTransparency/fltTransparency	-- change the RGB of the text based on expected fade level
-	if fltStringTransparency > fltTextVanishingPoint then	-- this stops drawing text when the transparency gets too low.
-		graphics.draw_string(x1 + (intButtonWidth * 0.1), y1 + (intButtonHeight * 0.4), "Ask FO to Packup", 0, 0, 0)
-	end
-	graphics.set_color(0.27, 0.51, 0.71, fltCurrentTransparency)
-	graphics.draw_rectangle(x1,y1,x2,y2)
+        -- FO preflight and Packup Options enabled
 
-	--draw button outline
-	local fltStringTransparency = (fltCurrentTransparency/fltTransparency) * 0.5	-- change the line transparency. 0.5 is zero transparency
-	graphics.set_color(0,0,0,fltStringTransparency)	--black
-	graphics.draw_line(x1,y1,x2,y1)
-	graphics.draw_line(x2,y1,x2,y2)
-	graphics.draw_line(x2,y2,x1,y2)
-	graphics.draw_line(x1,y2,x1,y1)	
+        --There are two buttons side by side in this state
+        local x1 = intHudXStart + intFrameBorderSize
+        local y1 = intHudYStart + intFrameBorderSize + intButtonHeight
+        local x2 = x1 + intButtonWidth
+        local y2 = y1 + intButtonHeight
 
-	
+        local fltStringTransparency = fltCurrentTransparency / fltTransparency -- change the RGB of the text based on expected fade level
+        if fltStringTransparency > fltTextVanishingPoint then -- this stops drawing text when the transparency gets too low.
+            graphics.draw_string(x1 + (intButtonWidth * 0.15), y1 + (intButtonHeight * 0.4), "Ask FO to Preflight", 0, 0
+                , 0)
+        end
+        graphics.set_color(0.27, 0.51, 0.71, fltCurrentTransparency)
+        graphics.draw_rectangle(x1, y1, x2, y2)
+
+        --draw button outline
+        local fltStringTransparency = (fltCurrentTransparency / fltTransparency) * 0.5 -- change the line transparency. 0.5 is zero transparency
+        graphics.set_color(0, 0, 0, fltStringTransparency) --black
+        graphics.draw_line(x1, y1, x2, y1)
+        graphics.draw_line(x2, y1, x2, y2)
+        graphics.draw_line(x2, y2, x1, y2)
+        graphics.draw_line(x1, y2, x1, y1)
+
+        --Draw the second button
+        x1 = x2
+        --y1 = y1		--y1 doesn't change value
+        x2 = x1 + intButtonWidth
+        y2 = y1 + intButtonHeight
+
+        local fltStringTransparency = fltCurrentTransparency / fltTransparency -- change the RGB of the text based on expected fade level
+        if fltStringTransparency > fltTextVanishingPoint then -- this stops drawing text when the transparency gets too low.
+            graphics.draw_string(x1 + (intButtonWidth * 0.1), y1 + (intButtonHeight * 0.4), "Ask FO to Packup", 0, 0, 0)
+        end
+        graphics.set_color(0.27, 0.51, 0.71, fltCurrentTransparency)
+        graphics.draw_rectangle(x1, y1, x2, y2)
+
+        --draw button outline
+        local fltStringTransparency = (fltCurrentTransparency / fltTransparency) * 0.5 -- change the line transparency. 0.5 is zero transparency
+        graphics.set_color(0, 0, 0, fltStringTransparency) --black
+        graphics.draw_line(x1, y1, x2, y1)
+        graphics.draw_line(x2, y1, x2, y2)
+        graphics.draw_line(x2, y2, x1, y2)
+        graphics.draw_line(x1, y2, x1, y1)
+
+
     end
 
     function tfCPXP_DrawBetaState()
@@ -1671,23 +1675,24 @@ end
         local y1 = intHudYStart + intFrameBorderSize + intButtonHeight
         local x2 = x1 + intButtonWidth + intButtonWidth
         local y2 = y1 + intButtonHeight
-        
-        local fltStringTransparency = fltCurrentTransparency/fltTransparency	-- change the RGB of the text based on expected fade level
-        if fltStringTransparency > fltTextVanishingPoint then	-- this stops drawing text when the transparency gets too low.
-            graphics.draw_string(x1 + (intButtonWidth * 0.15), y1 + (intButtonHeight * 0.4), "Detected in flight", 0, 0, 0)
+
+        local fltStringTransparency = fltCurrentTransparency / fltTransparency -- change the RGB of the text based on expected fade level
+        if fltStringTransparency > fltTextVanishingPoint then -- this stops drawing text when the transparency gets too low.
+            graphics.draw_string(x1 + (intButtonWidth * 0.15), y1 + (intButtonHeight * 0.4), "Detected in flight", 0, 0,
+                0)
         end
-        graphics.set_color( 4, 1, 4, fltCurrentTransparency) -- greyed out
-        graphics.draw_rectangle(x1,y1,x2,y2)
-        
+        graphics.set_color(4, 1, 4, fltCurrentTransparency) -- greyed out
+        graphics.draw_rectangle(x1, y1, x2, y2)
+
         --draw button outline
-        local fltStringTransparency = (fltCurrentTransparency/fltTransparency) * 0.5	-- change the line transparency. 0.5 is zero transparency
-        graphics.set_color(0,0,0,fltStringTransparency)	--black
-        graphics.draw_line(x1,y1,x2,y1)
-        graphics.draw_line(x2,y1,x2,y2)
-        graphics.draw_line(x2,y2,x1,y2)
-        graphics.draw_line(x1,y2,x1,y1)
+        local fltStringTransparency = (fltCurrentTransparency / fltTransparency) * 0.5 -- change the line transparency. 0.5 is zero transparency
+        graphics.set_color(0, 0, 0, fltStringTransparency) --black
+        graphics.draw_line(x1, y1, x2, y1)
+        graphics.draw_line(x2, y1, x2, y2)
+        graphics.draw_line(x2, y2, x1, y2)
+        graphics.draw_line(x1, y2, x1, y1)
     end
-    
+
     function tfCPXP_DrawCharlieState()
         -- Not initialised
         local x1 = intHudXStart + intFrameBorderSize
@@ -1695,8 +1700,8 @@ end
         local x2 = x1 + intButtonWidth + intButtonWidth
         local y2 = y1 + intButtonHeight
 
-        local fltStringTransparency = fltCurrentTransparency/fltTransparency	-- change the RGB of the text based on expected fade level
-        if fltStringTransparency > fltTextVanishingPoint then	-- this stops drawing text when the transparency gets too low.
+        local fltStringTransparency = fltCurrentTransparency / fltTransparency -- change the RGB of the text based on expected fade level
+        if fltStringTransparency > fltTextVanishingPoint then -- this stops drawing text when the transparency gets too low.
             graphics.draw_string(x1 + (intButtonWidth * 0.15), y1 + (intButtonHeight * 0.4), cpxpMsgStr, 0, 0, 0)
         end
     end
@@ -1717,39 +1722,37 @@ end
         tfCPXP_DrawInsidePanel()
         tfCPXP_DrawHeadingPanel()
         tfCPXP_DrawStatusPanel()
-        tfCPXP_DrawButtons()	
-    end	
-
-
+        tfCPXP_DrawButtons()
+    end
 
     function tfCPXP_DrawThings()
-        XPLMSetGraphicsState(0,0,0,1,1,0,0)
-        
+        XPLMSetGraphicsState(0, 0, 0, 1, 1, 0, 0)
+
         --check for mouse over before drawing
         local x1 = intHudXStart
         local y1 = intHudYStart
         local x2 = x1 + intFrameBorderSize + intButtonWidth + intButtonWidth + intFrameBorderSize
-        local y2 = y1 + intFrameBorderSize + intButtonHeight + intButtonHeight + intHeadingHeight + intFrameBorderSize	
+        local y2 = y1 + intFrameBorderSize + intButtonHeight + intButtonHeight + intHeadingHeight + intFrameBorderSize
         if (MOUSE_X < x1 or MOUSE_X > x2 or MOUSE_Y < y1 or MOUSE_Y > y2) then
             --don't draw - fade out
             fltCurrentTransparency = fltCurrentTransparency - 0.010
             if fltCurrentTransparency < 0 then
                 fltCurrentTransparency = 0
             end
-            tfCPXP_Draw()	
+            tfCPXP_Draw()
         else
-            fltCurrentTransparency = fltCurrentTransparency +0.025
+            fltCurrentTransparency = fltCurrentTransparency + 0.025
             if fltCurrentTransparency > fltTransparency then
                 fltCurrentTransparency = fltTransparency
             end
-            
-            tfCPXP_Draw()			
-    
+
+            tfCPXP_Draw()
+
         end
-    end	
+    end
 
     function tfCPXP_MouseClick()
-    -- Trigger mouse clicks
+        -- Trigger mouse clicks
         local x1 = intHudXStart + intFrameBorderSize
         local y1 = intHudYStart + intFrameBorderSize + intButtonHeight
         local x2 = x1 + intButtonWidth
@@ -1778,7 +1781,7 @@ end
         --This bit is the right button
         x1 = x2
         x2 = x1 + intButtonWidth
-        y2 = y1 + intButtonHeight			
+        y2 = y1 + intButtonHeight
         if MOUSE_X >= x1 and MOUSE_X <= x2 and MOUSE_Y >= y1 and MOUSE_Y < y2 then
             print("Right Button")
             if cpxpBEACON == 0 and cpxpWEIGHT_ON_WHEELS == 1 then
