@@ -34,7 +34,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
 
     -- Status HUD Position
     local intHudXStart = 15 -- Moves Settings HUD left and right, 0 being far left of screen
-    local intHudYStart = 475 -- Moves Settings HUD up and down, 0 being bottom of screen
+    local intHudYStart = 15 -- Moves Settings HUD up and down, 0 being bottom of screen
 
     -- Var
     local cpxpBubbleTimer = 0
@@ -378,12 +378,12 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
 
                         -- Cockpit Lighting
                         set("CL650/overhead/ext_lts/nav", 1)
-                        set("CL650/overhead/int_lts/overhead", 0.2)
+                        set("CL650/overhead/int_lts/overhead", 1)
                         set("CL650/pedestal/lighting/L/flood", 0.2)
-                        set("CL650/pedestal/lighting/L/integ", 0.2)
-                        set("CL650/pedestal/lighting/L/integ", 0.2)
+                        set("CL650/pedestal/lighting/L/integ", 1)
+                        set("CL650/pedestal/lighting/L/integ", 1)
                         set("CL650/pedestal/lighting/C/flood", 0.2)
-                        set("CL650/pedestal/lighting/R/integ", 0.2)
+                        set("CL650/pedestal/lighting/R/integ", 1)
                         set("CL650/pedestal/lighting/R/flood", 0.2)
                         set("CL650/overhead/map_lt/lh", 1)
                         set("CL650/overhead/map_lt/rh", 1)
@@ -395,6 +395,10 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                         set("CL650/cabin_lts/downwash", 0.5)
                         set("CL650/lav_lts/dome", 1)
                         set("CL650/bag_lts/dome", 1)
+                        -- Power up interior fuel panel
+                        print("Starting interior fuel panel")
+                        command_once("CL650/fuelpnl/int/power_up")
+                        command_once("CL650/fuelpnl/int/power_up")
                         cpxpFoPre_Basics = true
                         print("Basics complete")
                     end
@@ -476,16 +480,6 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                                 end
                             end
                         end
-                        if cpxpFoPre_ApuOnline and not cpxpFoPre_CDU2 then
-                            if get("CL650/CDU/2/screen/text_line0") ~= "" then
-                                if get("CL650/CDU/2/screen/text_line0") == "         INDEX      1/2 " then
-                                    cpxpFoPre_CDU2 = true
-                                elseif get("CL650/CDU/2/screen/text_line0") ~= "         INDEX      1/2 " then
-                                    print("CDU2 pressing index")
-                                    command_once("CL650/CDU/2/idx")
-                                end
-                            end
-                        end
 
                         if cpxpFoPre_ApuOnline and not cpxpFoPre_CDU3 then
                             if get("CL650/CDU/3/screen/text_line0") ~= "" then
@@ -508,28 +502,15 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                             end
                         end
 
-                        if cpxpFoPre_CDU2 and not cpxpFoPre_CDU2S then
-                            if get("CL650/CDU/2/screen/text_line0") == "         INDEX      1/2 " then
-                                print("CDU2 in index, pressing status")
-                                command_once("CL650/CDU/2/lsk_l3")
-                            elseif get("CL650/CDU/2/screen/text_line0") == "         STATUS     1/2 " then
-                                print("cdu 2 done")
-                                cpxpFoPre_CDU2S = true
-                            end
-                        end
-
                         if cpxpFoPre_CDU3 and not cpxpFoPre_CDU3S then
                             if get("CL650/CDU/3/screen/text_line0") == "         INDEX      1/2 " then
                                 print("CDU3 in index, pressing LSK3")
-                                command_once("CL650/CDU/3/lsk_l3")
-                            end
-                            if get("CL650/CDU/3/screen/text_line0") == "         STATUS     1/2 " then
-                                print("cdu 3 done")
+                                command_once("CL650/CDU/3/perf")
                                 cpxpFoPre_CDU3S = true
                             end
                         end
 
-                        if cpxpFoPre_CDU1S and cpxpFoPre_CDU2S and cpxpFoPre_CDU3S then
+                        if cpxpFoPre_CDU1S and cpxpFoPre_CDU3S then
                             cpxpFoPre_CDUS = true
                             print("CDU's all complete")
                         end
@@ -588,6 +569,8 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                     print("opening nose door")
                     command_once("CL650/svcpnl/ac/nose_door")
                 end
+                -- Power down interior fuel panel
+                command_once("CL650/fuelpnl/int/power_down")
                 set("CL650/pedestal/thr_rev/arm_L", 0)
                 set("CL650/pedestal/thr_rev/arm_R", 0)
                 set("CL650/pedestal/gear/nws", 0)
@@ -973,7 +956,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
 
         -- FLCH
 
-        if cpxpFLCH and cpxpToCalloutMode and cpxpVSI > 50 and cpxpAGL > 152 and cpxpPlaySeq == 7 and not cpxpFLCHPress then
+        if cpxpFLCH and cpxpToCalloutMode and cpxpVSI > 50 and cpxpAGL > 457 and cpxpPlaySeq == 7 and not cpxpFLCHPress then
             set("CL650/FCP/flc_mode", 1)
             cpxpFLCHPress = true
             cpxpCalloutTimer = 0
