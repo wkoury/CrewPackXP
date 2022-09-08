@@ -581,9 +581,11 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                 set("CL650/overhead/ext_lts/nav", 0)
                 set("CL650/overhead/ext_lts/logo", 0)
                 set("CL650/overhead/elec/apu_gen_value", 0)
-                set("CL650/overhead/apu/start_stop", 0)
                 if get("CL650/overhead/apu/start_stop") ~= 0 then
                     command_once("CL650/overhead/apu/start_stop")
+                end
+                if get("CL650/overhead/apu/pwr_fuel") ~= 0 then
+                    command_once("CL650/overhead/apu/pwr_fuel")
                 end
                 if get("CL650/overhead/aircond/pack_L") ~= 0 then
                     command_once("CL650/overhead/aircond/pack_L")
@@ -597,9 +599,7 @@ if AIRCRAFT_FILENAME == "CL650.acf" then
                 if get("CL650/overhead/bleed/10st/isol") ~= 0 then
                     command_once("CL650/overhead/bleed/10st/isol")
                 end
-                if get("CL650/overhead/apu/pwr_fuel") ~= 0 then
-                    command_once("CL650/overhead/apu/pwr_fuel")
-                end
+
 
                 set("CL650/fuelpnl/int/sov/l_main_value", 0)
                 set("CL650/fuelpnl/int/sov/tail_value", 0)
